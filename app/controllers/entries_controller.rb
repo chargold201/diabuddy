@@ -40,13 +40,8 @@ class EntriesController < ApplicationController
     end
 
     delete '/entries/:id' do
-        @entry = Entry.find(params[:id])
-        if @entry.user == current_user
-            Entry.delete(params[:id])
-            redirect to '/entries'
-        else
-            redirect to "/entries/#{params[:id]}"
-        end
+        Entry.delete(params[:id])
+        redirect to '/entries'
     end
 
     get '/entries/:id/edit' do
@@ -60,5 +55,11 @@ class EntriesController < ApplicationController
         else
             redirect to '/'
         end
+    end
+
+    patch '/entries/:id' do
+        @entry = Entry.find(params[:id])
+        @entry.update(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note])
+        redirect to "/entries/#{params[:id]}"
     end
 end

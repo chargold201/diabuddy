@@ -1,5 +1,5 @@
-<h2>Welcome, <%= current_user.name%>!</h2>
-
+<h2>Welcome, <%= current_user.name%>!</h2><a href="/logout">Log Out</a>
+<br><br>
 <% @entries.each do |entry| %>
-    <p><%= "#{entry.created_at} | #{entry.glucose} mg/dl | #{entry.carbs}g carbs | #{entry.insulin}u insulin  " %><a href="/entries/<%=entry.id%>">See more</a></p>
+    <p><%= "#{entry.created_at.strftime("%D %I:%M %p")} | #{entry.glucose} mg/dl | #{entry.carbs}g carbs | #{entry.insulin}u insulin  " %><a href="/entries/<%=entry.id%>">See more</a></p>
 <% end %>

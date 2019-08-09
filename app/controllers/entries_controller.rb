@@ -8,4 +8,12 @@ class EntriesController < ApplicationController
             redirect to '/'
         end
     end
+
+    get '/entries/new' do
+        if logged_in?
+            erb :'/entries/new'
+        else
+            redirect '/login'
+        end
+    end
 end

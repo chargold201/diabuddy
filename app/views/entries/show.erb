@@ -8,7 +8,7 @@ Insulin: <%= @entry.insulin %> units<br>
 Notes: <%= @entry.note %></p>
 
 <form action="/entries/<%=@entry.id%>/edit">
-    <button type="submit">Edit Entry</button>
+    <input type="submit" value="Edit Entry">
 </form>
 
 <form method="post" action="/entries/<%= @entry.id %>">

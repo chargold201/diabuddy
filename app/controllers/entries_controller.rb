@@ -48,4 +48,17 @@ class EntriesController < ApplicationController
             redirect to "/entries/#{params[:id]}"
         end
     end
+
+    get '/entries/:id/edit' do
+        if logged_in?
+            @entry = Entry.find(params[:id])
+            if @entry.user == current_user
+                erb :'/entries/edit'
+            else
+                redirect to '/entries'
+            end
+        else
+            redirect to '/'
+        end
+    end
 end

@@ -6,3 +6,8 @@
 Carbs: <%= @entry.carbs %>g<br>
 Insulin: <%= @entry.insulin %> units<br>
 Notes: <%= @entry.note %></p>
+
+<form method="post" action="/entries/<%= @entry.id %>">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Delete Entry"><br>
+</form>

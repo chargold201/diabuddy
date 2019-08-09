@@ -24,8 +24,6 @@ class SessionsController < ApplicationController
         end
     end
 
-    #check if email is already in use. If in use, redirect to signin.
-    #if not in use, create new user with name, email, and password, log them in (new session), and redirect to entries.
     post '/signup' do
         user = User.find_by(email: params[:email])
         if user

@@ -1,11 +1,16 @@
 <a href="/entries">Back</a>
-
+<br><br>
 <h3><%= @entry.created_at.strftime("%D %I:%M %p")%></h3>
 
 <p>Glucose: <%= @entry.glucose %> mg/dl<br>
 Carbs: <%= @entry.carbs %>g<br>
 Insulin: <%= @entry.insulin %> units<br>
 Notes: <%= @entry.note %></p>
+
+<form method="post" action="/entries/<%= @entry.id %>">
+    <input type="hidden" name="_method" value="patch">
+    <input type="submit" value="Edit Entry"><br>
+</form>
 
 <form method="post" action="/entries/<%= @entry.id %>">
     <input type="hidden" name="_method" value="delete">

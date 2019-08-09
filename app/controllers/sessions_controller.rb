@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
 
     get '/login' do
-        erb :'/sessions/login'
+        if logged_in?
+            redirect to '/entries'
+        else
+            erb :'/sessions/login'
+        end
     end
 
     post '/login' do
@@ -13,7 +17,11 @@ class SessionsController < ApplicationController
     end
 
     get '/signup' do
-        erb :'/sessions/signup'
+        if logged_in?
+            redirect to '/entries'
+        else
+            erb :'/sessions/signup'
+        end
     end
 
     #check if email is already in use. If in use, redirect to signin.
@@ -30,7 +38,7 @@ class SessionsController < ApplicationController
     end
 
     get '/logout' do
-        session.clear
+        session.clear if logged_in?
         redirect to '/'
     end
 

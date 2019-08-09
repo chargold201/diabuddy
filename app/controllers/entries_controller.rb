@@ -16,4 +16,13 @@ class EntriesController < ApplicationController
             redirect '/login'
         end
     end
+
+    post '/entries' do
+        if params[:glucose] == "" && params[:carbs] == "" && params[:insulin] == "" && params[:note] == ""
+            redirect 'entries/new'
+        else
+            Entry.create(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note], user_id: current_user.id)
+            redirect '/entries'
+        end
+    end
 end

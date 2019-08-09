@@ -10,9 +10,13 @@ class SessionsController < ApplicationController
 
     post '/login' do
         user = User.find_by(email: params[:email])
-        if user && user.authenticate(params[:password])
+        if !user
+            redirect to '/signup'
+        elsif user && user.authenticate(params[:password])
             session[:user_id] = user.id
             redirect to '/entries'
+        else
+            redirect to '/login'
         end
     end
 

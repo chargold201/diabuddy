@@ -25,4 +25,13 @@ class EntriesController < ApplicationController
             redirect '/entries'
         end
     end
+
+    get '/entries/:id' do
+        if logged_in?
+            @entry = Entry.find(params[:id])
+            erb :'/entries/show'
+        else
+            redirect '/login'
+        end
+    end
 end

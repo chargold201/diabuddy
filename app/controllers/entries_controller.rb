@@ -13,7 +13,7 @@ class EntriesController < ApplicationController
         if logged_in?
             erb :'/entries/new'
         else
-            redirect '/login'
+            redirect to '/login'
         end
     end
 
@@ -22,16 +22,30 @@ class EntriesController < ApplicationController
             redirect 'entries/new'
         else
             Entry.create(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note], user_id: current_user.id)
-            redirect '/entries'
+            redirect to '/entries'
         end
     end
 
     get '/entries/:id' do
         if logged_in?
             @entry = Entry.find(params[:id])
-            erb :'/entries/show'
+            if @entry.user == current_user
+                erb :'/entries/show'
+            else
+                redirect to '/entries'
+            end
         else
-            redirect '/login'
+            redirect to '/'
+        end
+    end
+
+    delete '/entries/:id' do
+        @entry = Entry.find(params[:id])
+        if @entry.user == current_user
+            Entry.delete(params[:id])
+            redirect to '/entries'
+        else
+            redirect to "/entries/#{params[:id]}"
         end
     end
 end

@@ -13,6 +13,11 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  not_found do 
+    status 404
+    erb :not_found
+  end
+
   helpers do
     def current_user
         @current_user ||= User.find(session[:user_id])

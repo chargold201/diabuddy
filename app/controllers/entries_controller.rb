@@ -2,7 +2,7 @@ class EntriesController < ApplicationController
 
     get '/entries' do
         if logged_in?
-            @entries = Entry.where(user_id: current_user.id).sort_by{|entry| entry.created_at}
+            @entries = Entry.where(user_id: current_user.id).sort_by{|entry| entry.created_at}.reverse
             erb :'/entries/index'
         else
             redirect to '/'

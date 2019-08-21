@@ -13,7 +13,7 @@ class EntriesController < ApplicationController
         if logged_in?
             erb :'/entries/new'
         else
-            redirect to '/login'
+            redirect to '/'
         end
     end
 

@@ -16,7 +16,7 @@
     background: rgb(34,193,195);
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
     color: #333;
-    font-family: Sans-Serif;
+    font-family: 'Roboto', sans-serif;
     line-height: 18px;
   }
 
@@ -28,7 +28,7 @@
     margin: 16px auto;
     max-width: 960px;
     padding: 2.25%; /* 18px / 800px */
-    width: 85%;
+    width: 55%;
   }
 
   h1 {
@@ -92,6 +92,19 @@
   .warning {
     color: red;
   }
+
+  .center {
+    text-align: center;
+  }
+
+  #logo {
+    font-size: 64px;
+  }
+
+  header {
+    text-align: right;
+  }
+
 }
 
 @media screen and (max-width: 600px) {

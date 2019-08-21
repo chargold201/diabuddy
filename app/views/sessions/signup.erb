@@ -8,4 +8,7 @@
     <label for="password">Password: </label>
     <input type="password" id="password" name="password" required><br>
     <input type="submit" value="Sign Up">
+    <% if @failed%>
+        <p class="warning">This email address is already in use. Please try again or <a href="/login">log in</a>.</p>
+    <% end%>
 </form>

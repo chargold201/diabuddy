@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
     get '/login' do
+        @failed = false
         if logged_in?
             redirect to '/entries'
         else
@@ -10,17 +11,17 @@ class SessionsController < ApplicationController
 
     post '/login' do
         user = User.find_by(email: params[:email])
-        if !user
-            redirect to '/signup'
-        elsif user && user.authenticate(params[:password])
+        if user && user.authenticate(params[:password])
             session[:user_id] = user.id
             redirect to '/entries'
         else
-            redirect to '/login'
+            @failed = true
+            erb :'/sessions/login'
         end
     end
 
     get '/signup' do
+        @failed = false
         if logged_in?
             redirect to '/entries'
         else
@@ -31,7 +32,8 @@ class SessionsController < ApplicationController
     post '/signup' do
         user = User.find_by(email: params[:email])
         if user
-            redirect to '/login'
+            @failed = true
+            erb :'/sessions/signup'
         else
             user = User.create(name: params[:name], email: params[:email], password: params[:password])
             session[:user_id] = user.id

@@ -88,6 +88,10 @@
     margin-top: 20px;
     padding-top: 20px;
   }
+
+  .warning {
+    color: red;
+  }
 }
 
 @media screen and (max-width: 600px) {

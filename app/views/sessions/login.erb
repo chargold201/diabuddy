@@ -5,8 +5,9 @@
     <input type="email" id="email" name="email" required><br>
     <label for="password">Password: </label>
     <input type="password" id="password" name="password" required>
+    <br>
+    <input type="submit" value="Log In">
     <% if @failed %>
         <p class="warning">Your email/password combination in incorrect. Please try again or <a href="/signup">sign up</a>.</p>
     <% end%>
-    <input type="submit" value="Log In">
 </form>

@@ -7,11 +7,8 @@ class EntriesController < ApplicationController
     end
 
     get '/entries/new' do
-        if logged_in?
-            erb :'/entries/new'
-        else
-            erb :unauthorized
-        end
+        authenticate
+        erb :'/entries/new'
     end
 
     post '/entries' do
@@ -24,39 +21,42 @@ class EntriesController < ApplicationController
     end
 
     get '/entries/:id' do
-        if logged_in?
-            @entry = Entry.find(params[:id])
-            if @entry.user == current_user
-                erb :'/entries/show'
-            else
-                erb :unauthorized
-            end
+        authenticate
+        @entry = Entry.find(params[:id])
+        if @entry.user == current_user
+          erb :'/entries/show'
         else
-            erb :unauthorized
+          erb :unauthorized
         end
     end
 
     delete '/entries/:id' do
-        Entry.delete(params[:id])
+      @entry = Entry.find(params[:id])
+      if logged_in? && current_user.entries.include?(@entry)
+        @entry.destroy
         redirect to '/entries'
+      else
+        erb :unauthorized
+      end
     end
 
     get '/entries/:id/edit' do
-        if logged_in?
-            @entry = Entry.find(params[:id])
-            if @entry.user == current_user
-                erb :'/entries/edit'
-            else
-                redirect to '/entries'
-            end
-        else
-            erb :unauthorized
-        end
+      authenticate
+      @entry = Entry.find(params[:id])
+      if @entry.user == current_user
+        erb :'/entries/edit'
+      else
+        erb :unauthorized
+      end
     end
 
     patch '/entries/:id' do
         @entry = Entry.find(params[:id])
-        @entry.update(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note])
-        redirect to "/entries/#{params[:id]}"
+        if logged_in? && current_user.entries.include?(@entry)
+          @entry.update(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note])
+          redirect to "/entries/#{params[:id]}"
+        else
+          erb :unauthorized
+        end
     end
 end

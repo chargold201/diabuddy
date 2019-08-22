@@ -11,6 +11,7 @@ gem 'shotgun'
 gem 'pry'
 gem 'bcrypt'
 gem 'tux'
+gem "nokogiri", ">= 1.10.4"
 
 group :test do
   gem 'rspec'

@@ -13,5 +13,6 @@ if ENV['SINATRA_ENV'] == 'development'
 end
 
 require_relative '../constants'
+require_all 'app/errors'
 require './app/controllers/application_controller'
 require_all 'app'

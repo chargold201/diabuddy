@@ -1,0 +1,3 @@
+class AuthenticationError < StandardError
+    
+end

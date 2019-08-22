@@ -1,19 +1,16 @@
 class EntriesController < ApplicationController
 
     get '/entries' do
-        if logged_in?
-            @entries = Entry.where(user_id: current_user.id).sort_by{|entry| entry.created_at}.reverse
-            erb :'/entries/index'
-        else
-            redirect '/unauthorized'
-        end
+        authenticate
+        @entries = Entry.where(user_id: current_user.id).sort_by{|entry| entry.created_at}.reverse
+        erb :'/entries/index'
     end
 
     get '/entries/new' do
         if logged_in?
             erb :'/entries/new'
         else
-            redirect '/unauthorized'
+            erb :unauthorized
         end
     end
 
@@ -32,10 +29,10 @@ class EntriesController < ApplicationController
             if @entry.user == current_user
                 erb :'/entries/show'
             else
-                redirect to '/entries'
+                erb :unauthorized
             end
         else
-            redirect '/unauthorized'
+            erb :unauthorized
         end
     end
 
@@ -53,7 +50,7 @@ class EntriesController < ApplicationController
                 redirect to '/entries'
             end
         else
-            redirect '/unauthorized'
+            erb :unauthorized
         end
     end
 

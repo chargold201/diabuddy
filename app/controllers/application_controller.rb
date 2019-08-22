@@ -10,7 +10,15 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    erb :index, :layout => :layout_home
+    if logged_in?
+      redirect '/entries'
+    else
+      erb :index, :layout => :layout_home
+    end
+  end
+
+  get "/unauthorized" do
+    erb :unauthorized
   end
 
   not_found do 
@@ -20,11 +28,17 @@ class ApplicationController < Sinatra::Base
 
   helpers do
     def current_user
-        @current_user ||= User.find(session[:user_id])
+      @current_user ||= User.find(session[:user_id])
     end
 
     def logged_in?
-        !!session[:user_id]
+      !!session[:user_id]
+    end
+
+    def authenticate
+      if !logged_in?
+        erb :unauthorized
+      end
     end
   end
 end

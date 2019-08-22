@@ -5,7 +5,7 @@ class EntriesController < ApplicationController
             @entries = Entry.where(user_id: current_user.id).sort_by{|entry| entry.created_at}.reverse
             erb :'/entries/index'
         else
-            redirect to '/'
+            redirect '/unauthorized'
         end
     end
 
@@ -13,7 +13,7 @@ class EntriesController < ApplicationController
         if logged_in?
             erb :'/entries/new'
         else
-            redirect to '/'
+            redirect '/unauthorized'
         end
     end
 
@@ -35,7 +35,7 @@ class EntriesController < ApplicationController
                 redirect to '/entries'
             end
         else
-            redirect to '/'
+            redirect '/unauthorized'
         end
     end
 
@@ -53,7 +53,7 @@ class EntriesController < ApplicationController
                 redirect to '/entries'
             end
         else
-            redirect to '/'
+            redirect '/unauthorized'
         end
     end
 

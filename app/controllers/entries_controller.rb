@@ -24,8 +24,11 @@ class EntriesController < ApplicationController
     get '/entries/:id' do
         authenticate
         @entry = Entry.find(params[:id])
-        erb :'/entries/show' if @entry.user == current_user
-        erb :unauthorized
+        if @entry.user == current_user
+          erb :'/entries/show'
+        else
+          erb :unauthorized
+        end
     end
 
     delete '/entries/:id' do
@@ -42,8 +45,11 @@ class EntriesController < ApplicationController
     get '/entries/:id/edit' do
       authenticate
       @entry = Entry.find(params[:id])
-      erb :'/entries/edit' if @entry.user == current_user
-      erb :unauthorized
+      if @entry.user == current_user
+        erb :'/entries/edit' 
+      else
+        erb :unauthorized
+      end
     end
 
     patch '/entries/:id' do

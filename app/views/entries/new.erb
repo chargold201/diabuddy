@@ -22,4 +22,9 @@
         </tr>
     </table>
     <input type="submit">
+    <br><br>
+
+    <% if @failed %>
+        <p class="warning">All fields cannot be blank. Please try again.</p>
+    <% end%>
 </form>

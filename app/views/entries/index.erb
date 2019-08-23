@@ -1,6 +1,7 @@
-<h2>Welcome, <%= current_user.name%>!</h2><a href="/logout">Log Out</a>
+<h2>Welcome, <%= current_user.name%>! </h2>
+<a href="/logout">Log Out</a>   | 
+<a href="/entries/new">Create a new entry</a>
 <br><br>
 <% @entries.each do |entry| %>
     <p><%= "#{entry.created_at.localtime.strftime("%D %l:%M %p")} | #{entry.glucose} mg/dl   " %><a href="/entries/<%=entry.id%>">See more</a></p>
 <% end %>
-<a href="/entries/new">Create a new entry</a>

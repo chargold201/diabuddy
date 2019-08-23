@@ -1,4 +1,6 @@
 <h2>Edit Entry</h2>
+<a href="/entries/<%= params[:id] %>">Back</a>
+<br><br>
 
 <form action="/entries/<%= @entry.id %>" method="post">
 <input type="hidden" name="_method" value="patch">

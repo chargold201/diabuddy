@@ -30,14 +30,12 @@ class SessionsController < ApplicationController
     end
 
     post '/signup' do
-        user = User.find_by(email: params[:email])
-        if user
-            @failed = true
-            erb :'/sessions/signup'
+        @user = User.create(name: params[:name], email: params[:email], password: params[:password])
+        if @user.errors.any?
+            erb :'sessions/signup'
         else
-            user = User.create(name: params[:name], email: params[:email], password: params[:password])
-            session[:user_id] = user.id
-            redirect to '/entries'
+            session[:user_id] = @user.id
+            redirect '/entries'
         end
     end
 

@@ -8,13 +8,15 @@ class EntriesController < ApplicationController
 
     get '/entries/new' do
         authenticate
+        @failed = false
         erb :'/entries/new'
     end
 
     post '/entries' do
         authenticate
         if params[:glucose] == "" && params[:carbs] == "" && params[:insulin] == "" && params[:note] == ""
-            redirect 'entries/new'
+            @failed = true
+            erb :'entries/new'
         else
             Entry.create(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note], user_id: current_user.id)
             redirect to '/entries'
@@ -56,8 +58,13 @@ class EntriesController < ApplicationController
         authenticate
         @entry = Entry.find(params[:id])
         if @entry.user == current_user
-          @entry.update(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note])
-          redirect to "/entries/#{params[:id]}"
+          if params[:glucose] == "" && params[:carbs] == "" && params[:insulin] == "" && params[:note] == ""
+            @failed = true
+            erb :'entries/edit'
+          else
+            @entry.update(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note])
+            redirect to "/entries/#{params[:id]}"
+          end
         else
           erb :unauthorized
         end

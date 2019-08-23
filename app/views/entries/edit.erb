@@ -1,14 +1,24 @@
 <h2>Edit Entry</h2>
 
 <form action="/entries/<%= @entry.id %>" method="post">
-    <input type="hidden" name="_method" value="patch">
-    <label for="glucose">Glucose: </label>
-    <input type="number" name="glucose" id="glucose" value="<%=@entry.glucose%>"><br>
-    <label for="carbs">Carbs: </label>
-    <input type="number" name="carbs" id="carbs" value="<%=@entry.carbs%>"><br>
-    <label for="insulin">Insulin: </label>
-    <input type="number" step="0.25" name="insulin" id="insulin" value="<%=@entry.insulin%>"><br>
-    <label for="note">Notes: </label>
-    <textarea id="note" name="note"><%=@entry.note%></textarea><br>
+<input type="hidden" name="_method" value="patch">
+    <table>
+        <tr>
+            <td><label for="glucose">Glucose: </label></td>
+            <td><input type="number" name="glucose" id="glucose" value="<%=@entry.glucose%>"> mg/dl</td>
+        </tr>
+        <tr>
+            <td><label for="carbs">Carbs: </label></td>
+            <td><input type="number" name="carbs" id="carbs" value="<%=@entry.carbs%>"> grams</td>
+        </tr>
+        <tr>
+            <td><label for="insulin">Insulin: </label></td>
+            <td><input type="number" step="0.25" name="insulin" id="insulin" value="<%=@entry.insulin%>"> units</td>
+        </tr>
+        <tr>
+            <td><label for="note">Notes: </label></td>
+            <td><textarea id="note" name="note"><%=@entry.note%></textarea></td>
+        </tr>
+    </table>
     <input type="submit" id="submit">
 </form>

@@ -3,13 +3,23 @@
 <br><br>
 
 <form action="/entries" method="post">
-    <label for="glucose">Glucose: </label>
-    <input type="number" id="glucose" name="glucose"> mg/dl<br>
-    <label for="carbs">Carbs: </label>
-    <input type="number" id="carbs" name="carbs"> grams<br>
-    <label for="insulin">Insulin: </label>
-    <input type="number" step="0.25" id="insulin" name="insulin"> units<br>
-    <label for="note">Notes: </label>
-    <textarea id="note" name="note"></textarea><br>
+    <table>
+        <tr>
+            <td><label for="glucose">Glucose: </label></td>
+            <td><input type="number" id="glucose" name="glucose"> mg/dl</td>
+        </tr>
+        <tr>
+            <td><label for="carbs">Carbs: </label></td>
+            <td><input type="number" id="carbs" name="carbs"> grams</td>
+        </tr>
+        <tr>
+            <td><label for="insulin">Insulin: </label></td>
+            <td><input type="number" step="0.25" id="insulin" name="insulin"> units</td>
+        </tr>
+        <tr>
+            <td><label for="note">Notes: </label></td>
+            <td><textarea id="note" name="note"></textarea></td>
+        </tr>
+    </table>
     <input type="submit">
 </form>

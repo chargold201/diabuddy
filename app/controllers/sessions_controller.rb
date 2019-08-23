@@ -21,12 +21,7 @@ class SessionsController < ApplicationController
     end
 
     get '/signup' do
-        @failed = false
-        if logged_in?
-            redirect to '/entries'
-        else
-            erb :'/sessions/signup'
-        end
+        redirect to '/entries' if logged_in?
     end
 
     post '/signup' do
@@ -35,7 +30,7 @@ class SessionsController < ApplicationController
             erb :'sessions/signup'
         else
             session[:user_id] = @user.id
-            redirect '/entries'
+            redirect to '/entries'
         end
     end
 

@@ -11,11 +11,8 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    if logged_in?
-      redirect '/entries'
-    else
-      erb :index, :layout => :layout_home
-    end
+    redirect '/entries' if logged_in?
+    erb :index, :layout => :layout_home
   end
 
   not_found do 

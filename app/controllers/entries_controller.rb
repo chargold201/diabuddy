@@ -12,6 +12,7 @@ class EntriesController < ApplicationController
     end
 
     post '/entries' do
+        authenticate
         if params[:glucose] == "" && params[:carbs] == "" && params[:insulin] == "" && params[:note] == ""
             redirect 'entries/new'
         else
@@ -23,16 +24,14 @@ class EntriesController < ApplicationController
     get '/entries/:id' do
         authenticate
         @entry = Entry.find(params[:id])
-        if @entry.user == current_user
-          erb :'/entries/show'
-        else
-          erb :unauthorized
-        end
+        erb :'/entries/show' if @entry.user == current_user
+        erb :unauthorized
     end
 
     delete '/entries/:id' do
+      authenticate
       @entry = Entry.find(params[:id])
-      if logged_in? && current_user.entries.include?(@entry)
+      if @entry.user == current_user
         @entry.destroy
         redirect to '/entries'
       else
@@ -43,16 +42,14 @@ class EntriesController < ApplicationController
     get '/entries/:id/edit' do
       authenticate
       @entry = Entry.find(params[:id])
-      if @entry.user == current_user
-        erb :'/entries/edit'
-      else
-        erb :unauthorized
-      end
+      erb :'/entries/edit' if @entry.user == current_user
+      erb :unauthorized
     end
 
     patch '/entries/:id' do
+        authenticate
         @entry = Entry.find(params[:id])
-        if logged_in? && current_user.entries.include?(@entry)
+        if @entry.user == current_user
           @entry.update(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note])
           redirect to "/entries/#{params[:id]}"
         else

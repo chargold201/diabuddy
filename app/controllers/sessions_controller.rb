@@ -22,10 +22,11 @@ class SessionsController < ApplicationController
 
     get '/signup' do
         redirect to '/entries' if logged_in?
+        erb :'/sessions/signup'
     end
 
     post '/signup' do
-        @user = User.create(name: params[:name], email: params[:email], password: params[:password])
+        @user = User.create(name: params[:name], email: params[:email], password: params[:password], password_confirmation: params[:confirm_password])
         if @user.errors.any?
             erb :'sessions/signup'
         else

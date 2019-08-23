@@ -26,47 +26,35 @@ class EntriesController < ApplicationController
     get '/entries/:id' do
         authenticate
         @entry = Entry.find(params[:id])
-        if @entry.user == current_user
-          erb :'/entries/show'
-        else
-          erb :unauthorized
-        end
+        authenticate_user(@entry)
+        erb :'/entries/show'
     end
 
     delete '/entries/:id' do
       authenticate
       @entry = Entry.find(params[:id])
-      if @entry.user == current_user
-        @entry.destroy
-        redirect to '/entries'
-      else
-        erb :unauthorized
-      end
+      authenticate_user(@entry)
+      @entry.destroy
+      redirect to '/entries'
     end
 
     get '/entries/:id/edit' do
       authenticate
       @entry = Entry.find(params[:id])
-      if @entry.user == current_user
-        erb :'/entries/edit' 
-      else
-        erb :unauthorized
-      end
+      authenticate_user(@entry)
+      erb :'/entries/edit' 
     end
 
     patch '/entries/:id' do
         authenticate
         @entry = Entry.find(params[:id])
-        if @entry.user == current_user
-          if params[:glucose] == "" && params[:carbs] == "" && params[:insulin] == "" && params[:note] == ""
-            @failed = true
-            erb :'entries/edit'
-          else
-            @entry.update(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note])
-            redirect to "/entries/#{params[:id]}"
-          end
+        authenticate_user(@entry)
+        if params[:glucose] == "" && params[:carbs] == "" && params[:insulin] == "" && params[:note] == ""
+          @failed = true
+          erb :'entries/edit'
         else
-          erb :unauthorized
+          @entry.update(glucose: params[:glucose], carbs: params[:carbs], insulin: params[:insulin], note: params[:note])
+          redirect to "/entries/#{params[:id]}"
         end
     end
 end

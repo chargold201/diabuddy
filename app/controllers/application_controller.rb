@@ -32,6 +32,11 @@ class ApplicationController < Sinatra::Base
     def authenticate
       raise AuthenticationError.new if !logged_in?
     end
+
+    def authenticate_user(entry)
+      authenticate
+      raise AuthenticationError.new if current_user != entry.user
+    end
   end
 
   error AuthenticationError do
